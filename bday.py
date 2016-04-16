@@ -2,27 +2,33 @@
 @author: zizhang hu
 @date: April,2016
 
-generate market days for U.S. equity from 1980 - 2030.
+generate market days for U.S. equity.
 
 @potential bug: the market calendar was different back to 20 century..
 
 '''
 
-from bdateutil import isbday
-import holidays
-import datetime
-from dateutil.easter import *
-from datetime import timedelta
+from pandas.tseries.holiday import get_calendar, HolidayCalendarFactory, GoodFriday
+from datetime import datetime,date,timedelta
 
-# good friday
-d = timedelta(days=-2)
+calendar = get_calendar('USFederalHolidayCalendar')
+calendar.rules.pop(6)
+calendar.rules.pop(7)
+trading_calendar = HolidayCalendarFactory('TradingCalendar',calendar,GoodFriday)
+
+output = trading_calendar()
+start = datetime(1980,1,1)
+end = datetime(2030,1,1)
+holidays = output.holidays(start,end)
+
 
 nYears = 50
 numdays = 365*50 + nYears/4 +1
-base = datetime.date(2030,1,1)
-date_list = [base - datetime.timedelta(days=x) for x in range(0, numdays)]
+base = date(2030,1,1)
+date_list = [base - timedelta(days=x) for x in range(0, numdays)]
+
 
 for date in date_list:
-	if isbday(date,holidays=holidays.US()) and date!=easter(date.year)+d:
+	if date not in holidays:
 		print date
 
