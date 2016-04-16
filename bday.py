@@ -16,14 +16,16 @@ calendar.rules.pop(6)
 calendar.rules.pop(7)
 trading_calendar = HolidayCalendarFactory('TradingCalendar',calendar,GoodFriday)
 
+
+nYears = 50
+
 output = trading_calendar()
-start = datetime(1980,1,1)
+start = datetime(2030-nYears,1,1)
 end = datetime(2030,1,1)
 holidays = output.holidays(start,end)
 
 
-nYears = 50
-numdays = 365*50 + nYears/4 +1
+numdays = 365*nYears + nYears/4 +1
 base = date(2030,1,1)
 date_list = [base - timedelta(days=x) for x in range(0, numdays)]
 
