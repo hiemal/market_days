@@ -1,5 +1,5 @@
 '''@bday.py
-@author: zizhang hu
+@author: Z Hu
 @date: April,2016
 
 generate market days for U.S. equity.
