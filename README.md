@@ -1,5 +1,5 @@
 # market days
-###### Zizhang Hu, April 2016
+###### April 2016
 
 Print market days for US equity market from 1980 - 2030. You can modify the date range in the source code.
 
